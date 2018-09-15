@@ -1,39 +1,72 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashMap;
 
 public class Library {
 
-    public ArrayList<Book> books = new ArrayList();
+    private ArrayList<Book> books;
+    private ArrayList<CompactDisc> compactDiscs;
 
-    public ArrayList<Client> clients = new ArrayList();
+    private ArrayList<Client> clients;
 
-    public void addBook (Book book) {
-        books.add (book);
+    public Library(){
+        books = new ArrayList<>();
+        compactDiscs = new ArrayList<>();
+        clients = new ArrayList<>();
+    }
+
+    public void addBook(Book book){
+        books.add(book);
+    }
+
+    public void addCompactDisc(CompactDisc compactDisc){
+        compactDiscs.add(compactDisc);
+    }
+
+    public void addClient(Client client){
+        clients.add(client);
+    }
+
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    public ArrayList<CompactDisc> getCompactDiscs() {
+        return compactDiscs;
+    }
+
+    public ArrayList<Client> getClients() {
+        return clients;
+    }
+
+    public ArrayList<Borrowable> getAllBorrowables(){
+        ArrayList<Borrowable> allBorrowables = new ArrayList<>();
+        allBorrowables.addAll(books);
+        allBorrowables.addAll(compactDiscs);
+        return allBorrowables;
     }
 
     public void printListOfBooks () {
-        for (Book book : books) {
-            if (!book.isCompactDisc()) {
-                System.out.println(book.booktitle + " # " + book.getAuthor() + " # " +book.category);
-            } else {
-                System.out.println(book.booktitle + " # " + book.getAuthor() + " # CD");
-            }
-        }
+        getAllBorrowables().forEach(borrowable -> System.out.println(borrowable.getTitle() + " # " + borrowable.getCopyrighted() + " # " + borrowable.getCategory()));
     }
 
-    public List<String> bookBorrowedBy(String title){
+    /*public List<String> bookBorrowedBy(String title){
         LinkedList<String> clientsBorrowedThisBook = new LinkedList<>();
         for(Client client:clients){
-            List<String> borrowedBooks = client.borrowedBooks.stream().map(book -> book.booktitle).collect(Collectors.toList());
+            List<String> borrowedBooks = client.borrowedBooks.stream().map(book -> book.getBooktitle()).collect(Collectors.toList());
             if(borrowedBooks.contains(title)){
-                clientsBorrowedThisBook.add(client.name);
+                clientsBorrowedThisBook.add(client.getName());
             }
         }
         return clientsBorrowedThisBook;
     }
+
+    public void deleteBook (Book book) {
+        libRary.books.remove (this);
+        for (Client client : libRary.clients) {
+            client.borrowedBooks.remove (this);
+        }
+    }*/
 
 }

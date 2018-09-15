@@ -17,9 +17,9 @@ public class BookTest {
 
   @Test
   public void shouldAddPage(){
-    assertEquals(0,book.pageContent.size());
+    assertEquals(0,book.getPageContent().size());
     book.addPage("Amazing Text");
-    assertEquals(1,book.pageContent.size());
+    assertEquals(1,book.getPageContent().size());
   }
 
   @Test

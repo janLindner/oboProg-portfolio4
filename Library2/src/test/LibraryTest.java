@@ -2,6 +2,7 @@ package test;
 
 import main.Book;
 import main.Client;
+import main.CompactDisc;
 import main.Library;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,22 +16,21 @@ public class LibraryTest {
   private Client client;
   private Library library;
   private Book book;
-  private Book cd;
+  private CompactDisc cd;
 
   @Before
   public void init(){
     client = new Client("Albert Schweitzer","Tollestrasse 1a");
     library = new Library();
-    client.addToLibrary(library);
+    library.addClient(client);
     book = new Book("Der Herr der Ringe", "Steve Jobs");
-    cd = new Book("Der Hobbit. Extended Cut.", "Harry Potter");
-    cd.setCompactDisc(true);
+    cd = new CompactDisc("Der Hobbit. Extended Cut.", "Harry Potter");
     library.addBook(book);
-    library.addBook(cd);
-    assertTrue(library.clients.contains(client));
-    assertEquals(2,library.books.size());
-    assertTrue(library.books.contains(book));
-    assertTrue(library.books.contains(cd));
+    library.addCompactDisc(cd);
+    assertTrue(library.getClients().contains(client));
+    assertEquals(2,library.getAllBorrowables().size());
+    assertTrue(library.getBooks().contains(book));
+    assertTrue(library.getCompactDiscs().contains(cd));
   }
 
   @Test
